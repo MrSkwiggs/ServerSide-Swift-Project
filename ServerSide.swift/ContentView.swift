@@ -23,7 +23,7 @@ struct ContentView: View {
                         Spacer()
                         Text("🚀")
                             .font(.system(size: 40))
-                            .offset(y: 15)
+                            .offset(y: 20)
                             .offset(y: -(viewModel.progress / 100) * content.size.height)
                     }
                     Spacer()
@@ -34,8 +34,9 @@ struct ContentView: View {
         .font(.system(size: 100))
         .padding()
         .background(
-            viewModel.didWin ? Color.green : .clear
+            viewModel.didWin ? Color.green : .black
         )
+        .animation(.easeOut, value: viewModel.didWin)
     }
 }
 
