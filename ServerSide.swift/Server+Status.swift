@@ -10,6 +10,6 @@ import Foundation
 extension Server {
     enum Status {
         case stopped
-        case running(GameController)
+        case running(ip: String)
     }
 }
