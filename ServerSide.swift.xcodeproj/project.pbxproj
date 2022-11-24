@@ -67,16 +67,16 @@
 		E75657F6292A6D4600642883 /* ServerSide.swift */ = {
 			isa = PBXGroup;
 			children = (
-				E7E55D1E292A802A00FFF6BF /* Files */,
-				E75657F7292A6D4600642883 /* ServerSide_swiftApp.swift */,
+				E75657FB292A6D4700642883 /* Assets.xcassets */,
+				E79483CB292F6DAC00145119 /* Combine+Convenience.swift */,
 				E75657F9292A6D4600642883 /* ContentView.swift */,
 				E756580B292A6FCC00642883 /* ContentView+ViewModel.swift */,
-				E756580D292A71FD00642883 /* Server.swift */,
-				E79483CB292F6DAC00145119 /* Combine+Convenience.swift */,
-				E79483C9292F66B200145119 /* System+Convenience.swift */,
-				E756580F292A723E00642883 /* Server+Status.swift */,
-				E75657FB292A6D4700642883 /* Assets.xcassets */,
+				E7E55D1E292A802A00FFF6BF /* Files */,
 				E75657FD292A6D4700642883 /* Preview Content */,
+				E756580D292A71FD00642883 /* Server.swift */,
+				E756580F292A723E00642883 /* Server+Status.swift */,
+				E75657F7292A6D4600642883 /* ServerSide_swiftApp.swift */,
+				E79483C9292F66B200145119 /* System+Convenience.swift */,
 			);
 			path = ServerSide.swift;
 			sourceTree = "<group>";
