@@ -19,6 +19,7 @@
 		E79483CA292F66B200145119 /* System+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79483C9292F66B200145119 /* System+Convenience.swift */; };
 		E79483CC292F6DAC00145119 /* Combine+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79483CB292F6DAC00145119 /* Combine+Convenience.swift */; };
 		E7E55D1F292A802A00FFF6BF /* Files in Resources */ = {isa = PBXBuildFile; fileRef = E7E55D1E292A802A00FFF6BF /* Files */; };
+		E7E5CCC5292FCA3B00645688 /* QRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E5CCC4292FCA3B00645688 /* QRCode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		E79483C9292F66B200145119 /* System+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "System+Convenience.swift"; sourceTree = "<group>"; };
 		E79483CB292F6DAC00145119 /* Combine+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Combine+Convenience.swift"; sourceTree = "<group>"; };
 		E7E55D1E292A802A00FFF6BF /* Files */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Files; path = ServerSide.swift/Files; sourceTree = SOURCE_ROOT; };
+		E7E5CCC4292FCA3B00645688 /* QRCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 				E756580B292A6FCC00642883 /* ContentView+ViewModel.swift */,
 				E7E55D1E292A802A00FFF6BF /* Files */,
 				E75657FD292A6D4700642883 /* Preview Content */,
+				E7E5CCC4292FCA3B00645688 /* QRCode.swift */,
 				E756580D292A71FD00642883 /* Server.swift */,
 				E756580F292A723E00642883 /* Server+Status.swift */,
 				E75657F7292A6D4600642883 /* ServerSide_swiftApp.swift */,
@@ -173,6 +176,7 @@
 				E75657F8292A6D4600642883 /* ServerSide_swiftApp.swift in Sources */,
 				E7565815292A7A2100642883 /* Server+Status.swift in Sources */,
 				E756580E292A71FD00642883 /* Server.swift in Sources */,
+				E7E5CCC5292FCA3B00645688 /* QRCode.swift in Sources */,
 				E79483CC292F6DAC00145119 /* Combine+Convenience.swift in Sources */,
 				E756580C292A6FCC00642883 /* ContentView+ViewModel.swift in Sources */,
 			);
