@@ -36,6 +36,8 @@ struct ContentView: View {
                 .onTapGesture {
                     showQRCode = true
                 }
+            Text("Players: \(viewModel.clients)")
+                .font(.body)
         }
         .font(.system(size: 100))
         .padding()
