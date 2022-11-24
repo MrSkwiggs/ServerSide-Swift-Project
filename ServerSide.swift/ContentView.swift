@@ -14,7 +14,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Text("🌖")
+            Text("🌒")
             Spacer()
             GeometryReader { content in
                 HStack {
@@ -22,20 +22,16 @@ struct ContentView: View {
                     VStack {
                         Spacer()
                         Text("🚀")
+                            .font(.system(size: 40))
+                            .offset(y: 15)
                             .offset(y: -(viewModel.progress / 100) * content.size.height)
                     }
                     Spacer()
                 }
             }
             Text("🌍")
-            Button {
-                viewModel.push()
-            } label: {
-                Text("Launch")
-            }
-            Text("\(viewModel.progress)")
         }
-        .font(.system(size: 60))
+        .font(.system(size: 100))
         .padding()
         .background(
             viewModel.didWin ? Color.green : .clear
