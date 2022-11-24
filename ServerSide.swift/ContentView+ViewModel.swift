@@ -33,7 +33,6 @@ extension ContentView {
             timer = Timer.scheduledTimer(withTimeInterval: 1/60, repeats: true, block: { timer in
                 self.pull()
             })
-            server?.start()
             server?
                 .$status
                 .receive(on: DispatchQueue.main)
@@ -59,10 +58,12 @@ extension ContentView {
                     self?.clients = clients
                 }
                 .store(in: &subscriptions)
+            server?.start()
         }
         
-        func push() {
-            progress = min(100, progress + 5)
+        private func push() {
+            guard client > 0 else { return }
+            progress = min(100, progress + CGFloat((5 / clients)))
             didWin = didWin || progress == 100
             
             if didWin { timer?.invalidate() }
