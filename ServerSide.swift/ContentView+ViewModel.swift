@@ -18,10 +18,36 @@ extension ContentView {
         
         private var timer: Timer?
         
+        private var server: Server? = .init()
+        
+        private var subscriptions: [AnyCancellable] = []
+        
         init() {
             timer = Timer.scheduledTimer(withTimeInterval: 1/60, repeats: true, block: { timer in
                 self.pull()
             })
+            server?.start()
+            server?
+                .$status
+                .sink { [weak self] status in
+                    print(status)
+                }
+                .store(in: &subscriptions)
+            
+            server?
+                .pushPublisher
+                .receive(on: DispatchQueue.main)
+                .sink(receiveValue: { [weak self] _ in
+                    self?.push()
+                })
+                .store(in: &subscriptions)
+            
+            server?
+                .clientsPublisher
+                .sink { [weak self] clients in
+                    print("clients: \(clients)")
+                }
+                .store(in: &subscriptions)
         }
         
         func push() {
