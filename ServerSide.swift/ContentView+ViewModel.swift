@@ -16,6 +16,9 @@ extension ContentView {
         @Published
         var didWin: Bool = false
         
+        @Published
+        var clients: Int = 0
+        
         private var timer: Timer?
         
         private var server: Server? = .init()
@@ -29,6 +32,7 @@ extension ContentView {
             server?.start()
             server?
                 .$status
+                .receive(on: DispatchQueue.main)
                 .sink { [weak self] status in
                     print(status)
                 }
@@ -44,8 +48,9 @@ extension ContentView {
             
             server?
                 .clientsPublisher
+                .receive(on: DispatchQueue.main)
                 .sink { [weak self] clients in
-                    print("clients: \(clients)")
+                    self?.clients = clients
                 }
                 .store(in: &subscriptions)
         }
