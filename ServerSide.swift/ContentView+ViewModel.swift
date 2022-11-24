@@ -62,7 +62,7 @@ extension ContentView {
         }
         
         private func push() {
-            guard client > 0 else { return }
+            guard clients > 0 else { return }
             progress = min(100, progress + CGFloat((5 / clients)))
             didWin = didWin || progress == 100
             
