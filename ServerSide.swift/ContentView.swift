@@ -12,6 +12,9 @@ struct ContentView: View {
     @StateObject
     var viewModel: ViewModel
     
+    @State
+    private var showQRCode: Bool = false
+    
     var body: some View {
         VStack(spacing: 0) {
             Text("🌒")
@@ -30,6 +33,9 @@ struct ContentView: View {
                 }
             }
             Text("🌍")
+                .onTapGesture {
+                    showQRCode = true
+                }
         }
         .font(.system(size: 100))
         .padding()
@@ -37,6 +43,14 @@ struct ContentView: View {
             viewModel.didWin ? Color.green : .black
         )
         .animation(.easeOut, value: viewModel.didWin)
+        .sheet(isPresented: $showQRCode) {
+            VStack {
+                Text(viewModel.ip)
+                    .font(.largeTitle)
+                    .bold()
+                QRCode(ip: viewModel.ip)
+            }
+        }
     }
 }
 
