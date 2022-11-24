@@ -59,7 +59,7 @@ class Server: ObservableObject {
             guard let ip = System.localIPv4Address else {
                 throw Error.noIP
             }
-            status = .running(ip: ip)
+            status = .running(ip: "http://\(ip)")
         } catch {
             return
         }

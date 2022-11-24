@@ -19,6 +19,10 @@ extension ContentView {
         @Published
         var clients: Int = 0
         
+        @Published
+        var ip: String = ""
+        
+        /// Used to continuously reduce the progress made by players
         private var timer: Timer?
         
         private var server: Server? = .init()
@@ -34,7 +38,9 @@ extension ContentView {
                 .$status
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] status in
-                    print(status)
+                    if case let .running(ip) = status {
+                        self?.ip = ip
+                    }
                 }
                 .store(in: &subscriptions)
             
