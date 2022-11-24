@@ -1,0 +1,25 @@
+body {
+    background-color: black;
+}
+
+.button {
+    /* width: 300px;
+    height: 300px; */
+    aspect-ratio: 1;
+    padding: 8pt;
+    background-color: #04AA6D;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 50%;
+    font-size: xxx-large;
+    box-shadow: 0 8px rgb(22, 55, 20);
+}
+
+.button:active {
+    box-shadow: 0 5px rgb(22, 55, 20);
+    transform: translateY(4px);
+}

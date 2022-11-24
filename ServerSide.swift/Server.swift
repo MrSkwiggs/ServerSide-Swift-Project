@@ -29,9 +29,9 @@ class Server: ObservableObject {
             app.leaf.configuration.rootDirectory = bundleURL.appendingPathComponent("Files/Views").absoluteString
             app.views.use(.leaf)
             
-            let file = FileMiddleware(publicDirectory: bundleURL.appendingPathComponent("Files/Public").absoluteString)
+            let file = FileMiddleware(publicDirectory: bundleURL.appendingPathComponent("Files/Public").path)
             app.middleware.use(file)
-            
+                        
             app.get { [weak self] request in
                 self?.clientsSubject.increment()
                 return request
@@ -45,7 +45,9 @@ class Server: ObservableObject {
             }
             
             app.post("bye") { [weak self] request in
-                self?.clientsSubject.increment(by: -1)
+                if self?.clientsSubject.value ?? 0 > 0 {
+                    self?.clientsSubject.increment(by: -1)
+                }
                 return "Bye"
             }
         } catch {
