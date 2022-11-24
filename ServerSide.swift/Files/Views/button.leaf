@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <button id="launchButton">Launch</button>
+</body>
+
+<script>
+
+    window.addEventListener("beforeunload", function () {
+        fetch("/bye", { method: 'post' });
+    });
+
+    const button = document.getElementById("launchButton");
+    button.addEventListener('click', async _ => {
+        fetch("/", { method: 'post' });
+    });
+</script>
+
+</html>

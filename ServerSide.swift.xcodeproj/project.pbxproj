@@ -16,6 +16,7 @@
 		E756580C292A6FCC00642883 /* ContentView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E756580B292A6FCC00642883 /* ContentView+ViewModel.swift */; };
 		E756580E292A71FD00642883 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = E756580D292A71FD00642883 /* Server.swift */; };
 		E7565815292A7A2100642883 /* Server+Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = E756580F292A723E00642883 /* Server+Status.swift */; };
+		E7E55D1F292A802A00FFF6BF /* Files in Resources */ = {isa = PBXBuildFile; fileRef = E7E55D1E292A802A00FFF6BF /* Files */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		E756580B292A6FCC00642883 /* ContentView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView+ViewModel.swift"; sourceTree = "<group>"; };
 		E756580D292A71FD00642883 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		E756580F292A723E00642883 /* Server+Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Server+Status.swift"; sourceTree = "<group>"; };
+		E7E55D1E292A802A00FFF6BF /* Files */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Files; path = ServerSide.swift/Files; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 		E75657F6292A6D4600642883 /* ServerSide.swift */ = {
 			isa = PBXGroup;
 			children = (
+				E7E55D1E292A802A00FFF6BF /* Files */,
 				E75657F7292A6D4600642883 /* ServerSide_swiftApp.swift */,
 				E75657F9292A6D4600642883 /* ContentView.swift */,
 				E756580B292A6FCC00642883 /* ContentView+ViewModel.swift */,
@@ -146,6 +149,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7E55D1F292A802A00FFF6BF /* Files in Resources */,
 				E75657FF292A6D4700642883 /* Preview Assets.xcassets in Resources */,
 				E75657FC292A6D4700642883 /* Assets.xcassets in Resources */,
 			);
