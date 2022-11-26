@@ -17,8 +17,12 @@ class Server: ObservableObject {
     private let pushSubject: PassthroughSubject<Void, Never> = .init()
     lazy var pushPublisher: AnyPublisher<Void, Never> = pushSubject.eraseToAnyPublisher()
     
-    private let clientsSubject: CurrentValueSubject<Int, Never> = .init(0)
-    lazy var clientsPublisher: AnyPublisher<Int, Never> = clientsSubject.eraseToAnyPublisher()
+    private let sessionIDsSubject: CurrentValueSubject<Set<String>, Never> = .init([])
+    lazy var sessionIDsPublisher: AnyPublisher<Set<String>, Never> = sessionIDsSubject.eraseToAnyPublisher()
+    
+    private var sockets: [String: WebSocket] = [:]
+    private var didLaunch: Bool = false
+    private var didWin: Bool = false
     
     let app: Application
     
@@ -31,24 +35,51 @@ class Server: ObservableObject {
             
             let file = FileMiddleware(publicDirectory: bundleURL.appendingPathComponent("Files/Public").path)
             app.middleware.use(file)
+            
+            app.middleware.use(app.sessions.middleware)
                         
             app.get { [weak self] request in
-                self?.clientsSubject.increment()
                 return request
                     .view
                     .render("button")
             }
             
+            app.get("register") { [weak self] request in
+                guard let sessionID = request.session.id else {
+                    return HTTPStatus.badRequest
+                }
+                self?.register(sessionID: sessionID.string)
+                return HTTPStatus.ok
+            }
+            
+            app.webSocket("countdown") { [weak self] request, socket in
+                guard let self else { return }
+                guard let sessionID = request.session.id else { return socket.close(promise: nil) }
+                
+                self.sockets[sessionID.string] = socket
+                
+                switch (self.didWin, self.didLaunch) {
+                case (true, _):
+                    socket.send("won")
+                case (_, true):
+                    socket.send("launch")
+                default:
+                    break
+                }
+            }
+            
             app.post { [weak self] request in
+                self?.register(sessionID: request.session.id?.string)
                 self?.pushSubject.send()
                 return "Thanks"
             }
             
             app.post("bye") { [weak self] request in
-                if self?.clientsSubject.value ?? 0 > 0 {
-                    self?.clientsSubject.increment(by: -1)
+                guard let sessionID = request.session.id else {
+                    return HTTPStatus.badRequest
                 }
-                return "Bye"
+                self?.sessionIDsSubject.value.remove(sessionID.string)
+                return HTTPStatus.ok
             }
         } catch {
             return nil
@@ -70,6 +101,29 @@ class Server: ObservableObject {
     func stop() {
         app.server.shutdown()
         status = .stopped
+    }
+    
+    func sendCountdown(_ countdown: Int) {
+        send("\(countdown)")
+    }
+    
+    func sendHasLaunched() {
+        send("launch")
+        didLaunch = true
+    }
+    
+    func sendHasWon() {
+        send("won")
+        self.didWin = true
+    }
+    
+    private func send(_ value: String) {
+        sockets.forEach { _, socket in socket.send(value) }
+    }
+    
+    private func register(sessionID: String?) {
+        guard let sessionID else { return }
+        sessionIDsSubject.value.insert(sessionID)
     }
 }
 

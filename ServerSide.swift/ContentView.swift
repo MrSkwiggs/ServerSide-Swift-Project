@@ -18,6 +18,10 @@ struct ContentView: View {
     var body: some View {
         VStack(spacing: 0) {
             Text("🌒")
+                .onTapGesture {
+                    viewModel.progress = 0
+                    viewModel.didWin = false
+                }
             Spacer()
             GeometryReader { content in
                 HStack {
@@ -36,8 +40,23 @@ struct ContentView: View {
                 .onTapGesture {
                     showQRCode = true
                 }
-            Text("Players: \(viewModel.clients)")
-                .font(.body)
+            
+            HStack(spacing: -15) {
+                ForEach(Array(viewModel.sessions), id: \.self) { _ in
+                    Text("👤")
+                        .font(.system(size: 20))
+                    
+                }
+            }
+            if !viewModel.isLaunchInProgress {
+                Button {
+                    viewModel.start()
+                } label: {
+                    Text("Launch")
+                        .font(.largeTitle)
+                        .bold()
+                }
+            }
         }
         .font(.system(size: 100))
         .padding()
@@ -52,6 +71,12 @@ struct ContentView: View {
                     .bold()
                 QRCode(ip: viewModel.ip)
             }
+        }
+        .overlay {
+            Text(viewModel.countdown ?? "")
+                .font(.system(size: 100))
+                .animation(.easeOut(duration: 0.2),
+                           value: viewModel.countdown)
         }
     }
 }

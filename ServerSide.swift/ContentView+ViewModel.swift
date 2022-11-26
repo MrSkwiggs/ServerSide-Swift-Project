@@ -17,10 +17,16 @@ extension ContentView {
         var didWin: Bool = false
         
         @Published
-        var clients: Int = 0
+        var sessions: Set<String> = []
         
         @Published
         var ip: String = ""
+        
+        @Published
+        private(set) var isLaunchInProgress: Bool = false
+        
+        @Published
+        var countdown: String?
         
         /// Used to continuously reduce the progress made by players
         private var timer: Timer?
@@ -52,21 +58,50 @@ extension ContentView {
                 .store(in: &subscriptions)
             
             server?
-                .clientsPublisher
+                .sessionIDsPublisher
                 .receive(on: DispatchQueue.main)
-                .sink { [weak self] clients in
-                    self?.clients = clients
+                .sink { [weak self] sessions in
+                    self?.sessions = sessions
                 }
                 .store(in: &subscriptions)
             server?.start()
         }
         
+        func start() {
+            isLaunchInProgress = true
+            countdown(5) { [weak self] value in
+                self?.countdown = "\(value)"
+                self?.server?.sendCountdown(value)
+            } onComplete: { [weak self] in
+                self?.countdown = "Launch!"
+                self?.server?.sendHasLaunched()
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+                    self?.countdown = nil
+                }
+            }
+        }
+        
+        private func countdown(_ value: Int, onCountdown: @escaping (Int) -> Void, onComplete: @escaping () -> Void) {
+            guard value != 0 else {
+                onComplete()
+                return
+            }
+            onCountdown(value)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1500)) {
+                self.countdown(value - 1, onCountdown: onCountdown, onComplete: onComplete)
+            }
+        }
+        
         private func push() {
-            guard clients > 0 else { return }
-            progress = min(100, progress + CGFloat((5 / clients)))
+            guard !sessions.isEmpty else { return }
+            let difficulty = sessions.count
+            progress = min(100, progress + CGFloat((5 / difficulty)))
             didWin = didWin || progress == 100
             
-            if didWin { timer?.invalidate() }
+            if didWin {
+                timer?.invalidate()
+                server?.sendHasWon()
+            }
         }
         
         private func pull() {
