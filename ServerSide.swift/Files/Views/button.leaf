@@ -7,12 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<body>
-    <div class="flex">
-        <div class="column">
+<body onload="register()">
+    <div id="container">
+        <div class="centered" id="buttonContainer">
             <button id="launchButton" class="button">Launch</button>
         </div>
-    </div>
+
+        <div class="centered" id="countdownContainer">
+            <h1 id="title">Awaiting launch codes</h1>
+            <p id="countdownLabel" style="display: none">Hello</p>
+        </div>
     </div>
 
     <link href="css/style.css" rel="stylesheet">
@@ -20,14 +24,59 @@
 
 <script>
 
-    window.addEventListener("beforeunload", function () {
-        fetch("/bye", { method: 'post' });
+    window.addEventListener("unload", function () {
+        navigator.sendBeacon("/bye");
     });
 
     const button = document.getElementById("launchButton");
+    const buttonContainer = document.getElementById("buttonContainer")
+    const countdownLabel = document.getElementById("countdownLabel");
+    const countdownLabelContainer = document.getElementById("countdownContainer")
+    const title = document.getElementById("title")
+
+    buttonContainer.style.display = "none"
+
     button.addEventListener('click', async e => {
         e.preventDefault();
         fetch("/", { method: 'post' });
     });
+
+    let socket;
+
+    function register() {
+        fetch("/register");
+
+        socket = new WebSocket(
+            "ws://" + location.host + "/countdown"
+        );
+
+        socket.addEventListener("open", function (event) {
+            socket.send("Hello Server!");
+            console.log("Websocket Open");
+        });
+
+        // Listen for messages
+        socket.addEventListener("message", function (event) {
+            if (event.data === "launch") {
+                buttonContainer.style.display = "";
+                countdownLabelContainer.style.display = "none";
+            } else if (event.data == "won") {
+                buttonContainer.style.display = "none";
+                title.innerText = "Mission Success!"
+                countdownLabelContainer.style.display = "";
+                countdownLabel.style.display = "none";
+            } else {
+                /// We should receive an integer
+                countdownLabel.style.display = "";
+                title.innerText = "Launch codes received\nLaunching in"
+                countdownLabel.innerText = event.data;
+            }
+        });
+    }
 </script>
+
+<style>
+
+</style>
+
 </html>
