@@ -15,6 +15,9 @@ struct ContentView: View {
     @State
     private var showQRCode: Bool = false
     
+    @State
+    private var rotation: CGFloat = 0.0
+    
     var body: some View {
         VStack(spacing: 0) {
             Text("🌒")
@@ -40,14 +43,10 @@ struct ContentView: View {
                 .onTapGesture {
                     showQRCode = true
                 }
-            
-            HStack(spacing: -15) {
-                ForEach(Array(viewModel.sessions), id: \.self) { _ in
-                    Text("👤")
-                        .font(.system(size: 20))
-                    
+                .overlay {
+                    Astronauts(astronauts: viewModel.sessions.count)
                 }
-            }
+                .zIndex(-1)
             if !viewModel.isLaunchInProgress {
                 Button {
                     viewModel.start()
@@ -78,11 +77,26 @@ struct ContentView: View {
                 .animation(.easeOut(duration: 0.2),
                            value: viewModel.countdown)
         }
+        .onAppear {
+            withAnimation(.linear(duration: 5).speed(0.1).repeatForever(autoreverses: false)) {
+                rotation = 360
+            }
+        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
+    
+    static var sessions: Set<String> {
+        var s = Set<String>()
+        for i in 0..<15 {
+            s.insert("\(i)")
+        }
+        return s
+    }
+    
     static var previews: some View {
-        ContentView(viewModel: .init())
+        ContentView(viewModel: .init(sessions: sessions))
     }
 }
+

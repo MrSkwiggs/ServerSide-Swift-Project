@@ -28,6 +28,8 @@ extension ContentView {
         @Published
         var countdown: String?
         
+        var id: Int = 1
+        
         /// Used to continuously reduce the progress made by players
         private var timer: Timer?
         
@@ -35,7 +37,9 @@ extension ContentView {
         
         private var subscriptions: [AnyCancellable] = []
         
-        init() {
+        init(sessions: Set<String> = []) {
+            self.sessions = sessions
+            
             timer = Timer.scheduledTimer(withTimeInterval: 1/60, repeats: true, block: { timer in
                 self.pull()
             })
@@ -61,10 +65,20 @@ extension ContentView {
                 .sessionIDsPublisher
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] sessions in
-                    self?.sessions = sessions
+//                    self?.sessions = sessions
                 }
                 .store(in: &subscriptions)
             server?.start()
+            increaseSession()
+        }
+        
+        func increaseSession() {
+            sessions.insert("\(id)")
+            id += 1
+            guard id < 180 else { return }
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(.random(in: 0...5) == 5 ? .random(in: 200...1000) : .random(in: 10...100))) {
+                self.increaseSession()
+            }
         }
         
         func start() {

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E7273D4D293E7EC50051177D /* CircularTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7273D4C293E7EC50051177D /* CircularTextView.swift */; };
+		E7273D4F293E89D20051177D /* Astronauts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7273D4E293E89D20051177D /* Astronauts.swift */; };
 		E75657F8292A6D4600642883 /* ServerSide_swiftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75657F7292A6D4600642883 /* ServerSide_swiftApp.swift */; };
 		E75657FA292A6D4600642883 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75657F9292A6D4600642883 /* ContentView.swift */; };
 		E75657FC292A6D4700642883 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E75657FB292A6D4700642883 /* Assets.xcassets */; };
@@ -23,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E7273D4C293E7EC50051177D /* CircularTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularTextView.swift; sourceTree = "<group>"; };
+		E7273D4E293E89D20051177D /* Astronauts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Astronauts.swift; sourceTree = "<group>"; };
 		E75657F4292A6D4600642883 /* ServerSide.swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ServerSide.swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E75657F7292A6D4600642883 /* ServerSide_swiftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSide_swiftApp.swift; sourceTree = "<group>"; };
 		E75657F9292A6D4600642883 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -72,6 +76,8 @@
 				E75657FB292A6D4700642883 /* Assets.xcassets */,
 				E79483CB292F6DAC00145119 /* Combine+Convenience.swift */,
 				E75657F9292A6D4600642883 /* ContentView.swift */,
+				E7273D4E293E89D20051177D /* Astronauts.swift */,
+				E7273D4C293E7EC50051177D /* CircularTextView.swift */,
 				E756580B292A6FCC00642883 /* ContentView+ViewModel.swift */,
 				E7E55D1E292A802A00FFF6BF /* Files */,
 				E75657FD292A6D4700642883 /* Preview Content */,
@@ -173,10 +179,12 @@
 			files = (
 				E79483CA292F66B200145119 /* System+Convenience.swift in Sources */,
 				E75657FA292A6D4600642883 /* ContentView.swift in Sources */,
+				E7273D4D293E7EC50051177D /* CircularTextView.swift in Sources */,
 				E75657F8292A6D4600642883 /* ServerSide_swiftApp.swift in Sources */,
 				E7565815292A7A2100642883 /* Server+Status.swift in Sources */,
 				E756580E292A71FD00642883 /* Server.swift in Sources */,
 				E7E5CCC5292FCA3B00645688 /* QRCode.swift in Sources */,
+				E7273D4F293E89D20051177D /* Astronauts.swift in Sources */,
 				E79483CC292F6DAC00145119 /* Combine+Convenience.swift in Sources */,
 				E756580C292A6FCC00642883 /* ContentView+ViewModel.swift in Sources */,
 			);

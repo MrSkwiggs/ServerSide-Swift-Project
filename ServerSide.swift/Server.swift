@@ -88,7 +88,7 @@ class Server: ObservableObject {
     
     func start() {
         do {
-            try app.server.start(address: .hostname("0.0.0.0", port: 80))
+            try app.server.start(address: .hostname("0.0.0.0", port: 81))
             guard let ip = System.localIPv4Address else {
                 throw Error.noIP
             }
