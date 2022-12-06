@@ -11,7 +11,7 @@ import SwiftUI
 struct ServerSide_swiftApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView(viewModel: .init())
+            Launch(viewModel: .init())
         }
     }
 }

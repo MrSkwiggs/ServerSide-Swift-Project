@@ -31,7 +31,6 @@ struct Rocket: View {
                             .offset(y: 20)
                             .opacity(progress > 0 ? 1 : 0.001)
                 }
-                .animation(.easeOut, value: progress)
     }
 }
 

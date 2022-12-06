@@ -1,5 +1,5 @@
 //
-//  ContentView+ViewModel.swift
+//  Launch+ViewModel.swift
 //  ServerSide.swift
 //
 //  Created by Dorian on 20/11/2022.
@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-extension ContentView {
+extension Launch {
     class ViewModel: ObservableObject {
         @Published
         var progress: CGFloat = 0
@@ -80,7 +80,7 @@ extension ContentView {
         
         func start() {
             isLaunchInProgress = true
-            countdown(5) { [weak self] value in
+            countdown(0) { [weak self] value in
                 self?.countdown = "\(value)"
                 self?.server?.sendCountdown(value)
             } onComplete: { [weak self] in
@@ -96,6 +96,7 @@ extension ContentView {
         func reset() {
             progress = 0
             didWin = false
+            isLaunchInProgress = false
             server?.reset()
         }
         
@@ -127,7 +128,6 @@ extension ContentView {
                 timer?.invalidate()
                 timer = nil
                 server?.sendHasWon()
-                isLaunchInProgress = false
             }
         }
         

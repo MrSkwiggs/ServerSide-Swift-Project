@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  Launch.swift
 //  ServerSide.swift
 //
 //  Created by Dorian on 20/11/2022.
@@ -8,7 +8,7 @@
 import SwiftUI
 import EffectsLibrary
 
-struct ContentView: View {
+struct Launch: View {
     
     @StateObject
     var viewModel: ViewModel
@@ -16,14 +16,15 @@ struct ContentView: View {
     @State
     private var showQRCode: Bool = false
     
-    @State
-    private var rotation: CGFloat = 0.0
-    
     var body: some View {
         VStack(spacing: 0) {
             Text("🌒")
                 .onTapGesture {
-                    viewModel.reset()
+                    if viewModel.isLaunchInProgress {
+                        viewModel.reset()
+                    } else {
+                        viewModel.start()
+                    }
                 }
             Spacer()
             GeometryReader { content in
@@ -39,25 +40,14 @@ struct ContentView: View {
                 }
             }
             Text("🌍")
-                .onTapGesture {
-                    showQRCode = true
-                }
                 .overlay {
                     Astronauts(astronauts: viewModel.sessions.count)
                 }
                 .zIndex(-1)
-            if !viewModel.isLaunchInProgress {
-                Button {
-                    viewModel.start()
-                } label: {
-                    Text("Launch")
-                        .font(.largeTitle)
-                        .bold()
-                }
-            }
         }
         .font(.system(size: 100))
         .padding()
+        .padding(.bottom, 20)
         .background(
             Color.black
                 .overlay(content: {
@@ -66,6 +56,9 @@ struct ContentView: View {
                     }
                 })
         )
+        .onTapGesture {
+            showQRCode = true
+        }
         .animation(.easeOut, value: viewModel.didWin)
         .sheet(isPresented: $showQRCode) {
             VStack {
@@ -81,11 +74,6 @@ struct ContentView: View {
                 .animation(.easeOut(duration: 0.2),
                            value: viewModel.countdown)
         }
-        .onAppear {
-            withAnimation(.linear(duration: 5).speed(0.1).repeatForever(autoreverses: false)) {
-                rotation = 360
-            }
-        }
     }
 }
 
@@ -100,7 +88,7 @@ struct ContentView_Previews: PreviewProvider {
     }
     
     static var previews: some View {
-        ContentView(viewModel: .init(sessions: sessions))
+        Launch(viewModel: .init(sessions: sessions))
     }
 }
 
