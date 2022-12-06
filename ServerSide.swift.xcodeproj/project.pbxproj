@@ -58,6 +58,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E7273D55293F45940051177D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E7273D4E293E89D20051177D /* Astronauts.swift */,
+				E7273D4C293E7EC50051177D /* CircularTextView.swift */,
+				E7273D53293E9C1A0051177D /* Rocket.swift */,
+				E7E5CCC4292FCA3B00645688 /* QRCode.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E7273D56293F45990051177D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E79483CB292F6DAC00145119 /* Combine+Convenience.swift */,
+				E79483C9292F66B200145119 /* System+Convenience.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E7273D57293F459E0051177D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E756580D292A71FD00642883 /* Server.swift */,
+				E756580F292A723E00642883 /* Server+Status.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		E7273D58293F45D40051177D /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				E75657F9292A6D4600642883 /* ContentView.swift */,
+				E756580B292A6FCC00642883 /* ContentView+ViewModel.swift */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
 		E75657EB292A6D4600642883 = {
 			isa = PBXGroup;
 			children = (
@@ -77,20 +115,14 @@
 		E75657F6292A6D4600642883 /* ServerSide.swift */ = {
 			isa = PBXGroup;
 			children = (
+				E7273D58293F45D40051177D /* Scenes */,
+				E7273D57293F459E0051177D /* Controllers */,
+				E7273D56293F45990051177D /* Extensions */,
+				E7273D55293F45940051177D /* Views */,
 				E75657FB292A6D4700642883 /* Assets.xcassets */,
-				E79483CB292F6DAC00145119 /* Combine+Convenience.swift */,
-				E75657F9292A6D4600642883 /* ContentView.swift */,
-				E7273D4E293E89D20051177D /* Astronauts.swift */,
-				E7273D4C293E7EC50051177D /* CircularTextView.swift */,
-				E7273D53293E9C1A0051177D /* Rocket.swift */,
-				E756580B292A6FCC00642883 /* ContentView+ViewModel.swift */,
 				E7E55D1E292A802A00FFF6BF /* Files */,
 				E75657FD292A6D4700642883 /* Preview Content */,
-				E7E5CCC4292FCA3B00645688 /* QRCode.swift */,
-				E756580D292A71FD00642883 /* Server.swift */,
-				E756580F292A723E00642883 /* Server+Status.swift */,
 				E75657F7292A6D4600642883 /* ServerSide_swiftApp.swift */,
-				E79483C9292F66B200145119 /* System+Convenience.swift */,
 			);
 			path = ServerSide.swift;
 			sourceTree = "<group>";
