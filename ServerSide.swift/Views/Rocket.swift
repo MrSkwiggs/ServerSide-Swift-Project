@@ -14,14 +14,14 @@ struct Rocket: View {
     var progress: CGFloat
         
     private var quadEase: CGFloat {
-        if progress == 100 { return 0 }
-        return 1 - pow(1 - progress / 100, 3)
+        if progress == 1 { return 0 }
+        return 1 - pow(1 - progress, 3)
     }
     
     var body: some View {
             Text("🚀")
                 .font(.system(size: 40))
-                .rotationEffect(.degrees(progress == 100 ? 135 : -45))
+                .rotationEffect(.degrees(progress == 1 ? 135 : -45))
                 .background {
                         FireView(config: .init(initialVelocity: .fast, spreadRadius: .high))
                             .edgesIgnoringSafeArea(.all)

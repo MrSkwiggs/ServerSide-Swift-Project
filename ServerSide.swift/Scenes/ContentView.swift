@@ -33,7 +33,7 @@ struct ContentView: View {
                         Spacer()
                         Rocket(progress: $viewModel.progress)
                             .offset(y: 20)
-                            .offset(y: -(viewModel.progress / 100) * content.size.height)
+                            .offset(y: -(viewModel.progress) * content.size.height)
                     }
                     Spacer()
                 }

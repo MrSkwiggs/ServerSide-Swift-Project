@@ -120,8 +120,8 @@ extension ContentView {
         private func push() {
             guard !sessions.isEmpty else { return }
             let difficulty = sessions.count
-            progress = min(100, progress + CGFloat((5 / difficulty)))
-            didWin = didWin || progress == 100
+            progress = min(1, progress + CGFloat((0.05 / Double(difficulty))))
+            didWin = didWin || progress == 1
             
             if didWin {
                 timer?.invalidate()
@@ -132,7 +132,7 @@ extension ContentView {
         }
         
         private func pull() {
-            progress = max(0, progress - (10 / 60))
+            progress = max(0, progress - (0.1 / 60))
         }
     }
 }
