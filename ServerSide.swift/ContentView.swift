@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import EffectsLibrary
 
 struct ContentView: View {
     
@@ -31,8 +32,7 @@ struct ContentView: View {
                     Spacer()
                     VStack {
                         Spacer()
-                        Text("🚀")
-                            .font(.system(size: 40))
+                        Rocket(progress: $viewModel.progress)
                             .offset(y: 20)
                             .offset(y: -(viewModel.progress / 100) * content.size.height)
                     }
@@ -60,7 +60,12 @@ struct ContentView: View {
         .font(.system(size: 100))
         .padding()
         .background(
-            viewModel.didWin ? Color.green : .black
+            Color.black
+                .overlay(content: {
+                    if viewModel.didWin {
+                        FireworksView(config: .init(intensity: .high))
+                    }
+                })
         )
         .animation(.easeOut, value: viewModel.didWin)
         .sheet(isPresented: $showQRCode) {

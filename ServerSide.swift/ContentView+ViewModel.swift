@@ -65,11 +65,11 @@ extension ContentView {
                 .sessionIDsPublisher
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] sessions in
-//                    self?.sessions = sessions
+                    self?.sessions = sessions
                 }
                 .store(in: &subscriptions)
             server?.start()
-            increaseSession()
+//            increaseSession()
         }
         
         func increaseSession() {
