@@ -115,14 +115,14 @@
 		E75657F6292A6D4600642883 /* ServerSide.swift */ = {
 			isa = PBXGroup;
 			children = (
-				E7273D58293F45D40051177D /* Scenes */,
+				E75657FB292A6D4700642883 /* Assets.xcassets */,
 				E7273D57293F459E0051177D /* Controllers */,
 				E7273D56293F45990051177D /* Extensions */,
-				E7273D55293F45940051177D /* Views */,
-				E75657FB292A6D4700642883 /* Assets.xcassets */,
 				E7E55D1E292A802A00FFF6BF /* Files */,
 				E75657FD292A6D4700642883 /* Preview Content */,
+				E7273D58293F45D40051177D /* Scenes */,
 				E75657F7292A6D4600642883 /* ServerSide_swiftApp.swift */,
+				E7273D55293F45940051177D /* Views */,
 			);
 			path = ServerSide.swift;
 			sourceTree = "<group>";

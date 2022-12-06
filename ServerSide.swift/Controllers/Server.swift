@@ -117,6 +117,11 @@ class Server: ObservableObject {
         self.didWin = true
     }
     
+    func reset() {
+        didLaunch = false
+        didWin = false
+    }
+    
     private func send(_ value: String) {
         sockets.forEach { _, socket in socket.send(value) }
     }

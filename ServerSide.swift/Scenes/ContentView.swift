@@ -23,8 +23,7 @@ struct ContentView: View {
         VStack(spacing: 0) {
             Text("🌒")
                 .onTapGesture {
-                    viewModel.progress = 0
-                    viewModel.didWin = false
+                    viewModel.reset()
                 }
             Spacer()
             GeometryReader { content in

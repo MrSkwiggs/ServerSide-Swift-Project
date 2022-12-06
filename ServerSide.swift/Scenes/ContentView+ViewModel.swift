@@ -40,9 +40,6 @@ extension ContentView {
         init(sessions: Set<String> = []) {
             self.sessions = sessions
             
-            timer = Timer.scheduledTimer(withTimeInterval: 1/60, repeats: true, block: { timer in
-                self.pull()
-            })
             server?
                 .$status
                 .receive(on: DispatchQueue.main)
@@ -69,10 +66,10 @@ extension ContentView {
                 }
                 .store(in: &subscriptions)
             server?.start()
-//            increaseSession()
         }
         
-        func increaseSession() {
+        /// For test purposes, randomly adds 180 participants
+        private func increaseSession() {
             sessions.insert("\(id)")
             id += 1
             guard id < 180 else { return }
@@ -88,11 +85,25 @@ extension ContentView {
                 self?.server?.sendCountdown(value)
             } onComplete: { [weak self] in
                 self?.countdown = "Launch!"
+                self?.scheduleTimer()
                 self?.server?.sendHasLaunched()
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
                     self?.countdown = nil
                 }
             }
+        }
+        
+        func reset() {
+            progress = 0
+            didWin = false
+            server?.reset()
+        }
+        
+        private func scheduleTimer() {
+            guard timer == nil else { return }
+            timer = Timer.scheduledTimer(withTimeInterval: 1/60, repeats: true, block: { timer in
+                self.pull()
+            })
         }
         
         private func countdown(_ value: Int, onCountdown: @escaping (Int) -> Void, onComplete: @escaping () -> Void) {
@@ -114,7 +125,9 @@ extension ContentView {
             
             if didWin {
                 timer?.invalidate()
+                timer = nil
                 server?.sendHasWon()
+                isLaunchInProgress = false
             }
         }
         
