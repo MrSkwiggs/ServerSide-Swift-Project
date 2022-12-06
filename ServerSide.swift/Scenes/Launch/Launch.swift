@@ -16,6 +16,9 @@ struct Launch: View {
     @State
     private var showQRCode: Bool = false
     
+    @State
+    private var showsGameOverScreen: Bool = false
+    
     var body: some View {
         VStack(spacing: 0) {
             Text("🌒")
@@ -73,6 +76,18 @@ struct Launch: View {
                 .font(.system(size: 100))
                 .animation(.easeOut(duration: 0.2),
                            value: viewModel.countdown)
+        }
+        .overlay {
+            if showsGameOverScreen {
+                GameOver(viewModel: viewModel.gameOverViewModel)
+            }
+        }
+        .onChange(of: viewModel.didWin) { _ in
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
+                withAnimation {
+                    self.showsGameOverScreen = true
+                }
+            }
         }
     }
 }

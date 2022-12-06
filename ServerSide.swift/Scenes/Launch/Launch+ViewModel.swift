@@ -30,6 +30,8 @@ extension Launch {
         
         var id: Int = 1
         
+        var gameOverViewModel: GameOver.ViewModel!
+        
         /// Used to continuously reduce the progress made by players
         private var timer: Timer?
         
@@ -80,13 +82,14 @@ extension Launch {
         
         func start() {
             isLaunchInProgress = true
-            countdown(0) { [weak self] value in
+            countdown(5) { [weak self] value in
                 self?.countdown = "\(value)"
                 self?.server?.sendCountdown(value)
             } onComplete: { [weak self] in
                 self?.countdown = "Launch!"
                 self?.scheduleTimer()
                 self?.server?.sendHasLaunched()
+                self?.gameOverViewModel = .init()
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
                     self?.countdown = nil
                 }
@@ -124,7 +127,11 @@ extension Launch {
             progress = min(1, progress + CGFloat((0.05 / Double(difficulty))))
             didWin = didWin || progress == 1
             
+            gameOverViewModel.amountOfPushes += 1
+            
             if didWin {
+                gameOverViewModel.numberOfPlayers = sessions.count
+                gameOverViewModel.gameOver()
                 timer?.invalidate()
                 timer = nil
                 server?.sendHasWon()
